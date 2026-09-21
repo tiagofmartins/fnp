@@ -1,2 +1,2 @@
-pyobjc-framework-Quartz==10.1
+pyobjc-framework-Quartz>=10.1
 astral==3.2
