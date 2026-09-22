@@ -85,18 +85,31 @@ def boot_date():
     return datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
 
 
-def stats():
-    """A dict with the main system stats."""
-    return {
-        "cpu": cpu_usage(),
-        "gpu": gpu_usage(),
-        "memory": memory_usage(),
-        "disk": disk_usage(),
-        "displays": display_mode.connected_displays(),
-        "uptime": uptime(),
-        "boot_date": boot_date(),
-    }
+def stats_str():
+    """A human-readable string with the main system stats."""
+    cpu = cpu_usage()
+    gpu = gpu_usage()
+    memory = memory_usage()
+    disk = disk_usage()
+    displays = display_mode.connected_displays()
+    up = uptime()
+    boot = boot_date()
+
+    displays_str = "\n".join(
+        f"Display {i}: {d['width']}x{d['height']} at {d['x']},{d['y']}{' [main]' if d['main'] else ''}"
+        for i, d in enumerate(displays, start=1)
+    )
+
+    return (
+        f"CPU: {cpu['avg']}% usage, {max(cpu['per_core'])}% max core\n"
+        f"GPU: {gpu['usage']}% usage, {gpu['memory_percent']}% memory\n"
+        f"Memory: {memory['percent']}% ({memory['used']}/{memory['total']}GB)\n"
+        f"Disk: {disk['percent']}% ({disk['used']}/{disk['total']}GB)\n"
+        f"{displays_str}\n"
+        f"Uptime: {up}\n"
+        f"Boot date: {boot}"
+    )
 
 
 if __name__ == "__main__":
-    print(stats())
+    print(stats_str())
