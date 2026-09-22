@@ -23,7 +23,7 @@ void setup() {
 }
 
 void draw() {
-  if (frameCount < 100) {
+  if (frameCount < 10) {
     randomizeCells();
     return;
   }
@@ -34,7 +34,7 @@ void draw() {
     }
   }
   iteration();
-  if (frameCount % 10 * 60 * 2 == 0) {
+  if (frameCount % (10 * 60 * 2) == 0) {
     randomizeCells();
   }
 }

@@ -1,2 +1,5 @@
 pyobjc-framework-Quartz>=10.1
 astral==3.2
+psutil>=5.9.4
+Pillow>=9.5.0
+python-telegram-bot>=22.5

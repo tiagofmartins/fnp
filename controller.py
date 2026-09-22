@@ -19,12 +19,12 @@ import display_brightness
 import display_setup
 import sun_brightness
 
-WALL_ON_TIME = dtime(8, 15)
-WALL_OFF_TIME = dtime(20, 0)
+WALL_ON_TIME = dtime(10, 5)
+WALL_OFF_TIME = dtime(10, 10)
 BRIGHTNESS_INTERVAL_MINUTES = 5
 CHECK_INTERVAL_SECONDS = 30
 
-WALL_CONTENT_COMMAND = ["/usr/local/bin/processing-java", "--sketch=example", "--run"]
+WALL_CONTENT_COMMAND = ["/Users/voronoi/processing", "cli", "--sketch=example", "--run"]
 
 
 def stop_content(process):

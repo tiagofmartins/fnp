@@ -22,6 +22,26 @@ def display_by_uuid(uuid):
     return None
 
 
+def connected_displays():
+    """List of connected displays: uuid, x, y, width, height, and whether
+    each one is the main display."""
+    err, ids, count = Quartz.CGGetActiveDisplayList(16, None, None) # type: ignore
+    if err:
+        raise RuntimeError(f"Unable to get active display list: {err}")
+    displays = []
+    for display_id in ids[:count]:
+        bounds = Quartz.CGDisplayBounds(display_id) # type: ignore
+        displays.append({
+            "uuid": display_power.uuid_for_display(display_id),
+            "x": int(bounds.origin.x),
+            "y": int(bounds.origin.y),
+            "width": int(bounds.size.width),
+            "height": int(bounds.size.height),
+            "main": bool(Quartz.CGDisplayIsMain(display_id)), # type: ignore
+        })
+    return displays
+
+
 def mode_matches(mode, width, height, hz, scaling):
     """True if a Quartz display mode satisfies the requested width, height, hz and scaling."""
     mode_logical = (Quartz.CGDisplayModeGetWidth(mode), Quartz.CGDisplayModeGetHeight(mode)) # type: ignore
