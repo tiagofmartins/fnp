@@ -2,3 +2,6 @@
 /secrets
 /camera_photos
 /log
+/actions
+/__pycache__
+/log_processes
